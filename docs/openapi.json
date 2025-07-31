@@ -1,0 +1,131 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HEI API Evaluation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/ping": {
+      "get": {
+        "summary": "Ping",
+        "responses": {
+          "200": {
+            "description": "pong (text/plain)"
+          }
+        }
+      }
+    },
+    "/home": {
+      "get": {
+        "summary": "Home HTML",
+        "responses": {
+          "200": {
+            "description": "Welcome home (HTML)"
+          }
+        }
+      }
+    },
+    "/posts": {
+      "post": {
+        "summary": "Add Posts",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "List of posts stored"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Posts",
+        "responses": {
+          "200": {
+            "description": "List of current posts"
+          }
+        }
+      },
+      "put": {
+        "summary": "Q6 - Update Posts (by title)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated post list"
+          }
+        }
+      }
+    },
+    "/ping/auth": {
+      "get": {
+        "summary": "Authenticated ping",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pong (text/plain)"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "creation_datetime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["author", "title", "content", "creation_datetime"]
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
