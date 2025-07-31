@@ -53,7 +53,7 @@ def update_posts(new_posts: List[Post]):
             posts_memory.append(new_post)
     return posts_memory
 
-# BONUS - Basic Auth (corrigé)
+# BONUS
 def basic_auth(request: Request):
     auth = request.headers.get("Authorization")
     if not auth or not auth.startswith("Basic "):
